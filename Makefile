@@ -2,8 +2,7 @@
 #
 #
 
-all:
-	false
+all: build/hello_usb.uf2
 
 .PHONY: build-deps
 build-deps:
@@ -17,7 +16,10 @@ submodules:
 build:
 	mkdir -p build
 
-build/Makefile: build CMakeLists.txt
+.PHONY: build-env
+build-env: submodules build
+
+build/Makefile: env CMakeLists.txt
 	cmake -B build -DCMAKE_BUILD_TYPE=Debug
 
 build/hello_usb.uf2: build/Makefile
