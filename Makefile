@@ -12,3 +12,13 @@ build-deps:
 .PHONY: submodules
 submodules:
 	git submodule update --init --recursive
+
+.PHONY: build
+build:
+	mkdir -p build
+
+build/Makefile: build CMakeLists.txt
+	cmake -B build -DCMAKE_BUILD_TYPE=Debug
+
+build/hello_usb.uf2: build/Makefile
+	make -C build
