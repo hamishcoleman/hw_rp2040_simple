@@ -19,7 +19,7 @@ build:
 .PHONY: build-env
 build-env: submodules build
 
-build/Makefile: env CMakeLists.txt
+build/Makefile: build-env CMakeLists.txt
 	cmake -B build -DCMAKE_BUILD_TYPE=Debug
 
 build/hello_usb.uf2: build/Makefile
