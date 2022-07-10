@@ -2,7 +2,8 @@
 #
 #
 
-all: build/hello_usb.uf2
+TARGET:=build/hello_usb.uf2
+all: ${TARGET}
 
 .PHONY: build-deps
 build-deps:
@@ -32,3 +33,11 @@ clean:
 .PHONY: realclean
 realclean:
 	rm -rf build
+
+.PHONY: mount
+mount:
+	udisksctl mount -b $(shell sudo blkid -o device --match-token LABEL="RPI-RP2" |head -1)
+
+.PHONY: copy
+copy: ${TARGET}
+	cp $< /media/${LOGNAME}/RPI-RP2/
