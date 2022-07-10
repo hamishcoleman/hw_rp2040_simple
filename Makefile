@@ -9,16 +9,17 @@ all: ${TARGET}
 build-deps:
 	sudo apt-get install -y git cmake gcc-arm-none-eabi
 
-.PHONY: submodules
-submodules:
+.submodules:
 	git submodule update --init --recursive
+	touch $@
+CLEAN+=.submodules
 
 .PHONY: build
 build:
 	mkdir -p build
 
 .PHONY: build-env
-build-env: submodules build
+build-env: .submodules build
 
 build/Makefile: build-env CMakeLists.txt
 	cmake -B build -DCMAKE_BUILD_TYPE=Debug
@@ -33,6 +34,7 @@ clean:
 .PHONY: realclean
 realclean:
 	rm -rf build
+	rm -f $(CLEAN)
 
 .PHONY: mount
 mount:
