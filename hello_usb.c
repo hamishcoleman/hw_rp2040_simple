@@ -10,7 +10,9 @@
 int main() {
     stdio_init_all();
     while (true) {
-        printf("Hello, world!\n");
+        printf("Hello, world! Compiled at: %s %s\n",
+                __DATE__,
+                __TIME__);
         sleep_ms(1000);
     }
     return 0;
