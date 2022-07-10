@@ -24,3 +24,11 @@ build/Makefile: build-env CMakeLists.txt
 
 build/hello_usb.uf2: build/Makefile
 	make -C build
+
+.PHONY: clean
+clean:
+	make -C build clean
+
+.PHONY: realclean
+realclean:
+	rm -rf build
